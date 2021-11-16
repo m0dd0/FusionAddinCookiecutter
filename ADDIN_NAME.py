@@ -6,9 +6,30 @@ import adsk.core, adsk.fusion, adsk.cam
 
 from .fusion_addin_framework import fusion_addin_framework as faf
 
+# settings / constants
 LOGGING_ENABLED = True
 
+# globals
 addin = None
+
+def on_created(event_args: adsk.core.CommandCreatedEventArgs):
+    command = event_args.command
+
+    
+def on_execute(event_args: adsk.core.CommandEventArgs):
+    pass
+
+def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
+    # inputs = event_args.inputs # !!! do NOT use this because of bug
+    # (will only contain inputs of the same input group)
+    inputs = event_args.firingEvent.sender.commandInputs
+
+
+def on_key_down(event_args: adsk.core.KeyboardEventArgs):
+    pass
+
+def on_destroy(event_args: adsk.core.CommandEventArgs):
+    pass
 
 ### ENTRY POINT ###
 def run(context):
@@ -29,11 +50,10 @@ def run(context):
         tab = faf.Tab(workspace, id="ToolsTab")
         panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
         control = faf.Control(panel)
-        mover_event_id = str(uuid4())
         cmd = faf.AddinCommand(
             control,
-            resourceFolder="gear",
-            name="Snacade",
+            resourceFolder="lightbulb",
+            name="ADDIN_NAME",
             commandCreated=on_created,
             inputChanged=on_input_changed,
             execute=on_execute,
