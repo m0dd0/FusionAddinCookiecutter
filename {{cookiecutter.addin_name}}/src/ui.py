@@ -19,7 +19,7 @@ class CommandWindow:
 
     def _create_group_1(self):
         self.controls_group = self._command.commandInputs.addGroupCommandInput(
-            InputIds.ControlsGroup.value, "Group1"
+            InputIds.Group1.value, "Group1"
         )
 
         self.button_1 = self.controls_group.children.addBoolValueInput(
