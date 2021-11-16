@@ -4,17 +4,14 @@ import adsk.core, adsk.fusion, adsk.cam
 
 from ..fusion_addin_framework import fusion_addin_framework as faf
 
+
 class InputIds(faf.utils.InputIdsBase):
     Group1 = auto()
     Button1 = auto()
 
 
-class GameUI:
-    def __init__(
-        self,
-        command,
-        resource_folder
-    ):
+class CommandWindow:
+    def __init__(self, command, resource_folder):
         self._command = command
         self._resource_folder = resource_folder
 

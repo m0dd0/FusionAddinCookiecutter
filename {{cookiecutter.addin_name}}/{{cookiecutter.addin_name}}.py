@@ -40,6 +40,9 @@ def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
     # (will only contain changed inputs of the same input group)
     inputs = event_args.firingEvent.sender.commandInputs
 
+    if inputs.id == InputIds.Button1:
+        pass
+
 
 def on_destroy(event_args: adsk.core.CommandEventArgs):
     pass
@@ -66,7 +69,7 @@ def run(context):
         control = faf.Control(panel)
         cmd = faf.AddinCommand(
             control,
-            resourceFolder="lightbulb",
+            resourceFolder="{{cookiecutter.control_image}}",
             name="{{cookiecutter.addin_name}}",
             commandCreated=on_created,
             inputChanged=on_input_changed,

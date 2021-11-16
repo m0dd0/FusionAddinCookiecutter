@@ -2,5 +2,6 @@
     "addin_name": "MyCustomAdddin",
     "author": "Moritz Hesche",
     "version": "0.0.1",
-    "description": "A custom addin for Fusion360."
+    "description": "A custom addin for Fusion360.",
+    "control_image": "lightbulb"
 }
