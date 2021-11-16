@@ -24,10 +24,6 @@ def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
     # (will only contain inputs of the same input group)
     inputs = event_args.firingEvent.sender.commandInputs
 
-
-def on_key_down(event_args: adsk.core.KeyboardEventArgs):
-    pass
-
 def on_destroy(event_args: adsk.core.CommandEventArgs):
     pass
 
