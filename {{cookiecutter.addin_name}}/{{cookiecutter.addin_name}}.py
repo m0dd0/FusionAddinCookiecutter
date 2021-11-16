@@ -67,7 +67,7 @@ def run(context):
         cmd = faf.AddinCommand(
             control,
             resourceFolder="lightbulb",
-            name="ADDIN_NAME",
+            name="{{cookiecutter.addin_name}}",
             commandCreated=on_created,
             inputChanged=on_input_changed,
             execute=on_execute,
