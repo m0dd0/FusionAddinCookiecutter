@@ -41,7 +41,7 @@ def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
     # use instead:
     # inputs = event_args.firingEvent.sender.commandInputs
 
-    if event_args.input.id == InputIds.Button1:
+    if event_args.input.id == InputIds.Button1.value:
         adsk.core.Application.get().userInterface.messageBox("Button clicked.")
 
 
