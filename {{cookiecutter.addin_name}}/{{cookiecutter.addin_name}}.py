@@ -36,12 +36,13 @@ def on_execute(event_args: adsk.core.CommandEventArgs):
 
 
 def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
-    # inputs = event_args.inputs # !!! do NOT use this because of bug
-    # (will only contain changed inputs of the same input group)
-    inputs = event_args.firingEvent.sender.commandInputs
+    # !!! do NOT use this because of bug # (will only contain changed inputs of the same input group)
+    # inputs = event_args.inputs
+    # use instead:
+    # inputs = event_args.firingEvent.sender.commandInputs
 
-    if inputs.id == InputIds.Button1:
-        pass
+    if event_args.input.id == InputIds.Button1:
+        adsk.core.Application.get().userInterface.messageBox("Button clicked.")
 
 
 def on_destroy(event_args: adsk.core.CommandEventArgs):
