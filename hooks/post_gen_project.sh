@@ -3,3 +3,4 @@ git init
 git submodule add https://github.com/m0dd0/fusion_addin_framework.git
 git add *
 git commit -a -m "Created ready to use template with https://github.com/m0dd0/FusionAddinBase"
+code .
