@@ -23,9 +23,9 @@ class CommandWindow:
         )
 
         self.button_1 = self.controls_group.children.addBoolValueInput(
-            InputIds.Play.value,
+            InputIds.Button1.value,
             "Button 1",
             True,
-            str(self._resource_folder / "play_button"),
+            str(self._resource_folder / "lightbulb"),
             False,
         )
