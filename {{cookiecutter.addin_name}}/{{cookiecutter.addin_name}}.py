@@ -11,13 +11,13 @@ from .src.ui import InputIds, CommandWindow
 
 # settings / constants #########################################################
 LOGGING_ENABLED = True
-RESOURCE_FOLDER = Path(__file__).parent / "resources"
-# RESOURCE_FOLDER = (
-#     Path(__file__).parent
-#     / "fusion_addin_framework"
-#     / "fusion_addin_framework"
-#     / "default_images"
-# )
+RESOURCE_FOLDER = (
+    Path(__file__).parent
+    / "fusion_addin_framework"
+    / "fusion_addin_framework"
+    / "default_images"
+)
+# RESOURCE_FOLDER = Path(__file__).parent / "resources"
 
 
 # globals ######################################################################
