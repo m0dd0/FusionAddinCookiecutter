@@ -6,7 +6,7 @@
 	"description":	{
 		"":	"{{cookiecutter.description}}"
 	},
-	"version":	"{{cookiecutter.author}}",
+	"version":	"{{cookiecutter.version}}",
 	"runOnStartup":	false,
 	"supportedOS":	"windows|mac",
 	"editEnabled":	true
