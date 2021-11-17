@@ -22,6 +22,7 @@ RESOURCE_FOLDER = (
 
 # globals ######################################################################
 addin = None
+ao = faf.utils.AppObjects()
 
 
 # handlers #####################################################################
@@ -42,7 +43,7 @@ def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
     # inputs = event_args.firingEvent.sender.commandInputs
 
     if event_args.input.id == InputIds.Button1.value:
-        adsk.core.Application.get().userInterface.messageBox("Button clicked.")
+        ao.userInterface.messageBox("Button clicked.")
 
 
 def on_destroy(event_args: adsk.core.CommandEventArgs):
@@ -51,10 +52,8 @@ def on_destroy(event_args: adsk.core.CommandEventArgs):
 
 ### entry point ################################################################
 def run(context):
-    ui = None
     try:
-        app = adsk.core.Application.get()
-        ui = app.userInterface
+        ui = ao.userInterface
 
         if LOGGING_ENABLED:
             faf.utils.create_logger(
@@ -86,10 +85,8 @@ def run(context):
 
 
 def stop(context):
-    ui = None
     try:
-        app = adsk.core.Application.get()
-        ui = app.userInterface
+        ui = ao.userInterface
         addin.stop()
     except:
         msg = "Failed:\n{}".format(traceback.format_exc())
