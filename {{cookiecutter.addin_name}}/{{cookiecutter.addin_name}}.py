@@ -57,7 +57,7 @@ def run(context):
 
         if LOGGING_ENABLED:
             faf.utils.create_logger(
-                faf.__name__,
+                __name__,  # also applies to faf since its a submodule
                 [logging.StreamHandler(), faf.utils.TextPaletteLoggingHandler()],
             )
 
