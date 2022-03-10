@@ -1,24 +1,33 @@
 import logging
-from uuid import uuid4
 import traceback
 from pathlib import Path
 
-import adsk.core, adsk.fusion, adsk.cam
+import adsk.core, adsk.fusion
 
-from .fusion_addin_framework import fusion_addin_framework as faf
-from .src.ui import InputIds, CommandWindow
+import adsk.core, adsk.fusion
+from .{{cookiecutter.addin_name}}.fusion_addin_framework import fusion_addin_framework as faf
+
+from .{{cookiecutter.addin_name}}.logic_model import *
+from .{{cookiecutter.addin_name}}.ui import CommandWindow, InputIds
 
 
 # settings / constants #########################################################
 LOGGING_ENABLED = True
 RESOURCE_FOLDER = (
     Path(__file__).parent
+    / "{{cookiecutter.addin_name}}"
     / "fusion_addin_framework"
     / "fusion_addin_framework"
     / "default_images"
 )
 # RESOURCE_FOLDER = Path(__file__).parent / "resources"
 
+# class MyCommand(faf.AddinCommand):
+#     def __init__(self, parent: Union[Control, List[Control]] = None, id: str = "random", name: str = "random", resourceFolder: Union[str, Path] = "lightbulb", tooltip: str = "", toolClipFileName: Union[str, Path] = None, isEnabled: bool = True, isVisible: bool = True, isChecked: bool = True, listControlDisplayType=..., **eventHandlers: Callable):
+#         super().__init__(parent, id, name, resourceFolder, tooltip, toolClipFileName, isEnabled, isVisible, isChecked, listControlDisplayType, **eventHandlers)
+
+#     def on_execute(self, event_args):
+#         pass
 
 # globals ######################################################################
 addin = None
@@ -28,7 +37,6 @@ ao = faf.utils.AppObjects()
 # handlers #####################################################################
 def on_created(event_args: adsk.core.CommandCreatedEventArgs):
     command = event_args.command
-
     command_window = CommandWindow(command, RESOURCE_FOLDER)
 
 
@@ -37,10 +45,9 @@ def on_execute(event_args: adsk.core.CommandEventArgs):
 
 
 def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
-    # !!! do NOT use this because of bug # (will only contain changed inputs of the same input group)
-    # inputs = event_args.inputs
-    # use instead:
-    # inputs = event_args.firingEvent.sender.commandInputs
+    # do NOT use this: inputs = event_args.inputs
+    # (will only contain changed inputs of the same input group)
+    # use instead: inputs = event_args.firingEvent.sender.commandInputs
 
     if event_args.input.id == InputIds.Button1.value:
         ao.userInterface.messageBox("Button clicked.")
@@ -67,6 +74,7 @@ def run(context):
         tab = faf.Tab(workspace, id="ToolsTab")
         panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
         control = faf.Control(panel)
+        
         cmd = faf.AddinCommand(
             control,
             resourceFolder="{{cookiecutter.control_image}}",
