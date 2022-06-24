@@ -1,0 +1,1 @@
+from .command import {{cookiecutter.command_name}}
