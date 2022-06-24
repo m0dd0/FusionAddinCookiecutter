@@ -1,134 +1,52 @@
+# pylint:disable=logging-fstring-interpolation
+
 import logging
 import traceback
 from pathlib import Path
 
-import adsk.core, adsk.fusion
-
-import adsk.core, adsk.fusion
-
-from .{{cookiecutter.addin_name}}.fusion_addin_framework import fusion_addin_framework as faf
-
-from .{{cookiecutter.addin_name}}.logic_model import *
-from .{{cookiecutter.addin_name}}.ui import CommandWindow, InputIds
+from .addin.libs.fusion_addin_framework import fusion_addin_framework as faf
+from .addin import config
+from .addin.commands.{{cookiecutter.command_name}} import {{cookiecutter.command_name}}Command
 
 
-# settings / constants #########################################################
-LOGGING_ENABLED = True
-RESOURCE_FOLDER = (
-    Path(__file__).parent
-    / "{{cookiecutter.addin_name}}"
-    / "fusion_addin_framework"
-    / "fusion_addin_framework"
-    / "default_images"
-)
-# RESOURCE_FOLDER = Path(__file__).parent / "resources"
-
-# region
-# standard, declarative approach
-# globals ######################################################################
-addin = None
-ao = faf.utils.AppObjects()
-
-
-# handlers #####################################################################
-def on_created(event_args: adsk.core.CommandCreatedEventArgs):
-    command = event_args.command
-    command_window = CommandWindow(command, RESOURCE_FOLDER)
-
-
-def on_execute(event_args: adsk.core.CommandEventArgs):
-    pass
-
-
-def on_input_changed(event_args: adsk.core.InputChangedEventArgs):
-    # do NOT use this: inputs = event_args.inputs
-    # (will only contain changed inputs of the same input group)
-    # use instead: inputs = event_args.firingEvent.sender.commandInputs
-
-    if event_args.input.id == InputIds.Button1.value:
-        ao.userInterface.messageBox("Button clicked.")
-
-
-def on_destroy(event_args: adsk.core.CommandEventArgs):
-    pass
-
-
-### entry point ################################################################
-def run(context):
+def run(context):  # pylint:disable=unused-argument
     try:
-        ui = ao.userInterface
+        ui = faf.utils.AppObjects().userInterface
 
-        if LOGGING_ENABLED:
+        if config.LOGGING_ENABLED:
+            Path(config.LOGGING_FOLDER).mkdir(parents=True, exist_ok=True)
             faf.utils.create_logger(
                 __name__,  # also applies to faf since its a submodule
-                [logging.StreamHandler(), faf.utils.TextPaletteLoggingHandler()],
+                [
+                    logging.StreamHandler(),
+                    # faf.utils.TextPaletteLoggingHandler(),
+                    logging.handlers.TimedRotatingFileHandler(
+                        config.LOGGING_FOLDER / config.LOGFILE_BASENAME,
+                        when=config.LOGGING_ROTATE_WHEN,
+                        interval=config.LOGGING_ROTATE_INTERVAL,
+                        backupCount=config.LOGGING_ROTATE_COUNT,
+                    ),
+                ],
             )
+            logging.getLogger(__name__).info(f"Logging to {config.LOGGING_FOLDER}")
 
-        global addin
         addin = faf.FusionAddin()
-        workspace = faf.Workspace(addin, id="FusionSolidEnvironment")
-        tab = faf.Tab(workspace, id="ToolsTab")
-        panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
-        control = faf.Control(panel)
 
-        cmd = faf.AddinCommand(
-            control,
-            resourceFolder="{{cookiecutter.control_image}}",
-            name="{{cookiecutter.addin_name}}",
-            commandCreated=on_created,
-            inputChanged=on_input_changed,
-            execute=on_execute,
-            destroy=on_destroy,
-        )
+        {{cookiecutter.command_name}}Command(addin)
 
-    except:
+    except:  # pylint:disable=bare-except
         msg = "Failed:\n{}".format(traceback.format_exc())
         if ui:
             ui.messageBox(msg)
         print(msg)
 
 
-def stop(context):
+def stop(context):  # pylint:disable=unused-argument
     try:
-        ui = ao.userInterface
-        addin.stop()
-    except:
+        ui = faf.utils.AppObjects().userInterface
+        faf.stop()
+    except:  # pylint:disable=bare-except
         msg = "Failed:\n{}".format(traceback.format_exc())
         if ui:
             ui.messageBox(msg)
         print(msg)
-
-
-# endregion
-
-# region
-# command cubclass approach
-class MyCommand(faf.AddinCommand):
-    def __init__(self):
-        self.ao = faf.utils.AppObjects()
-
-        addin = faf.FusionAddin()
-        workspace = faf.Workspace(addin, id="FusionSolidEnvironment")
-        tab = faf.Tab(workspace, id="ToolsTab")
-        panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
-        control = faf.Control(panel)
-
-        super().__init__(
-            control,
-            resourceFolder="{{cookiecutter.control_image}}",
-            name="{{cookiecutter.addin_name}}"
-        )
-
-    def on_execute(self, event_args):
-        pass
-
-    def on
-
-        # if LOGGING_ENABLED:
-        #     faf.utils.create_logger(
-        #         __name__,  # also applies to faf since its a submodule
-        #         [logging.StreamHandler(), faf.utils.TextPaletteLoggingHandler()],
-        #     )
-
-
-# endregion
