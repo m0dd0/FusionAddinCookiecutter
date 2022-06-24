@@ -13,7 +13,7 @@ subprocess.run(
         "develop",
         "https://github.com/m0dd0/fusion_addin_framework.git",
     ],
-    cwd="./{{cookiecutter.addin_name}}",
+    cwd="./{{cookiecutter.addin_name}}/libs",
 )
 # git submodule update --init --recursive
 subprocess.run(["git", "add", "*"])
