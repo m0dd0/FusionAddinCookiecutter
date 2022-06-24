@@ -1,7 +1,11 @@
 {
-    "addin_name": "MyCustomAdddin",
-    "author": "Moritz Hesche",
-    "version": "0.0.1",
-    "description": "A custom addin for Fusion360.",
-    "control_image": "lightbulb"
+  "addin_name": "MyCustomAdddin",
+  "author": "Moritz Hesche",
+  "version": "0.0.1",
+  "description": "A custom addin for Fusion360.",
+  "command_name": "MyCommand",
+  "workspace_id": "FusionSolidEnvironment",
+  "tab_id": "ToolsTab",
+  "panel_id": "SolidScriptsAddinsPanel",
+  "tooltip": "A tooltip."
 }
