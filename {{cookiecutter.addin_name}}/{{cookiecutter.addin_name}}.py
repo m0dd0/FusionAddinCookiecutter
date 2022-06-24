@@ -5,6 +5,7 @@ from pathlib import Path
 import adsk.core, adsk.fusion
 
 import adsk.core, adsk.fusion
+
 from .{{cookiecutter.addin_name}}.fusion_addin_framework import fusion_addin_framework as faf
 
 from .{{cookiecutter.addin_name}}.logic_model import *
@@ -22,13 +23,8 @@ RESOURCE_FOLDER = (
 )
 # RESOURCE_FOLDER = Path(__file__).parent / "resources"
 
-# class MyCommand(faf.AddinCommand):
-#     def __init__(self, parent: Union[Control, List[Control]] = None, id: str = "random", name: str = "random", resourceFolder: Union[str, Path] = "lightbulb", tooltip: str = "", toolClipFileName: Union[str, Path] = None, isEnabled: bool = True, isVisible: bool = True, isChecked: bool = True, listControlDisplayType=..., **eventHandlers: Callable):
-#         super().__init__(parent, id, name, resourceFolder, tooltip, toolClipFileName, isEnabled, isVisible, isChecked, listControlDisplayType, **eventHandlers)
-
-#     def on_execute(self, event_args):
-#         pass
-
+# region
+# standard, declarative approach
 # globals ######################################################################
 addin = None
 ao = faf.utils.AppObjects()
@@ -74,7 +70,7 @@ def run(context):
         tab = faf.Tab(workspace, id="ToolsTab")
         panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
         control = faf.Control(panel)
-        
+
         cmd = faf.AddinCommand(
             control,
             resourceFolder="{{cookiecutter.control_image}}",
@@ -101,3 +97,38 @@ def stop(context):
         if ui:
             ui.messageBox(msg)
         print(msg)
+
+
+# endregion
+
+# region
+# command cubclass approach
+class MyCommand(faf.AddinCommand):
+    def __init__(self):
+        self.ao = faf.utils.AppObjects()
+
+        addin = faf.FusionAddin()
+        workspace = faf.Workspace(addin, id="FusionSolidEnvironment")
+        tab = faf.Tab(workspace, id="ToolsTab")
+        panel = faf.Panel(tab, id="SolidScriptsAddinsPanel")
+        control = faf.Control(panel)
+
+        super().__init__(
+            control,
+            resourceFolder="{{cookiecutter.control_image}}",
+            name="{{cookiecutter.addin_name}}"
+        )
+
+    def on_execute(self, event_args):
+        pass
+
+    def on
+
+        # if LOGGING_ENABLED:
+        #     faf.utils.create_logger(
+        #         __name__,  # also applies to faf since its a submodule
+        #         [logging.StreamHandler(), faf.utils.TextPaletteLoggingHandler()],
+        #     )
+
+
+# endregion
