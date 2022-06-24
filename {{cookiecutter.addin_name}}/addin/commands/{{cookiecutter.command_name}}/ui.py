@@ -21,6 +21,6 @@ class CommandWindow:
             InputIds.Group1.value, "Group1"
         )
 
-        # self.button_1 = self.controls_group.children.addBoolValueInput(
-        #     InputIds.Button1.value, "Button 1", True
-        # )
+        self.button_1 = self.controls_group.children.addBoolValueInput(
+            InputIds.Button1.value, "Button 1", True
+        )
