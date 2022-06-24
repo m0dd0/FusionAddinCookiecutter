@@ -1,1 +1,1 @@
-from .command import {{cookiecutter.command_name}}
+from .command import {{cookiecutter.command_name}}Command

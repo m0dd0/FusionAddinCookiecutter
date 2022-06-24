@@ -2,7 +2,7 @@ from enum import auto
 
 import adsk.core, adsk.fusion
 
-from .fusion_addin_framework import fusion_addin_framework as faf
+from ...libs.fusion_addin_framework import fusion_addin_framework as faf
 
 
 class InputIds(faf.utils.InputIdsBase):
@@ -11,17 +11,15 @@ class InputIds(faf.utils.InputIdsBase):
 
 
 class CommandWindow:
-    def __init__(self, command, resource_folder):
+    def __init__(self, command):
         self._command = command
-        self._resource_folder = resource_folder
 
         self._create_group_1()
 
     def _create_group_1(self):
-        pass
-        # self.controls_group = self._command.commandInputs.addGroupCommandInput(
-        #     InputIds.Group1.value, "Group1"
-        # )
+        self.controls_group = self._command.commandInputs.addGroupCommandInput(
+            InputIds.Group1.value, "Group1"
+        )
 
         # self.button_1 = self.controls_group.children.addBoolValueInput(
         #     InputIds.Button1.value, "Button 1", True

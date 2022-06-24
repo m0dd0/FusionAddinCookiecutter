@@ -39,7 +39,7 @@ class {{cookiecutter.command_name}}Command(faf.AddinCommandBase):
     def execute(
         self, eventArgs: adsk.core.CommandEventArgs  # pylint:disable=unused-argument
     ):
-        pass
+        adsk.core.Application.get().userInterface.messageBox("Hello World")
 
     def destroy(
         self, eventArgs: adsk.core.CommandEventArgs  # pylint:disable=unused-argument
