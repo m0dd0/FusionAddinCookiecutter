@@ -2,7 +2,7 @@ import adsk.core, adsk.fusion  # pylint:disable=import-error
 
 from ...libs.fusion_addin_framework import fusion_addin_framework as faf
 from ... import config
-from .ui import CommandWindow, InputIds
+from .ui import InputsWindow, InputIds
 from .logic_model import {{cookiecutter.command_name}}Model
 
 
@@ -24,7 +24,7 @@ class {{cookiecutter.command_name}}Command(faf.AddinCommandBase):
         self.model = None
 
     def commandCreated(self, eventArgs: adsk.core.CommandCreatedEventArgs):
-        self.command_window = CommandWindow(eventArgs.command)
+        self.command_window = InputsWindow(eventArgs.command)
         self.model = {{cookiecutter.command_name}}Model(self.command_window)
 
     def inputChanged(self, eventArgs: adsk.core.InputChangedEventArgs):

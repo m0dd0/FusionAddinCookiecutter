@@ -10,7 +10,7 @@ class InputIds(faf.utils.InputIdsBase):
     Button1 = auto()
 
 
-class CommandWindow:
+class InputsWindow:
     def __init__(self, command):
         self._command = command
 
